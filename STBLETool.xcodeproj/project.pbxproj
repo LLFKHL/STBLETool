@@ -12,7 +12,7 @@
 		965D2C221C98F03B004D5D16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 965D2C201C98F03B004D5D16 /* Main.storyboard */; };
 		965D2C241C98F03B004D5D16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 965D2C231C98F03B004D5D16 /* Assets.xcassets */; };
 		965D2C271C98F03B004D5D16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 965D2C251C98F03B004D5D16 /* LaunchScreen.storyboard */; };
-		965D2C351C98F18C004D5D16 /* STBLETool.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D2C341C98F18C004D5D16 /* STBLETool.m */; };
+		965D2C351C98F18C004D5D16 /* STCentralTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D2C341C98F18C004D5D16 /* STCentralTool.m */; };
 		965D2C391C99864C004D5D16 /* CentralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 965D2C381C99864C004D5D16 /* CentralVC.m */; };
 		9671BEEC1C9A467700BEEDA9 /* PeripheralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9671BEEB1C9A467700BEEDA9 /* PeripheralVC.m */; };
 /* End PBXBuildFile section */
@@ -26,8 +26,8 @@
 		965D2C231C98F03B004D5D16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		965D2C261C98F03B004D5D16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		965D2C281C98F03B004D5D16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		965D2C331C98F18C004D5D16 /* STBLETool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STBLETool.h; sourceTree = "<group>"; };
-		965D2C341C98F18C004D5D16 /* STBLETool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STBLETool.m; sourceTree = "<group>"; };
+		965D2C331C98F18C004D5D16 /* STCentralTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCentralTool.h; sourceTree = "<group>"; };
+		965D2C341C98F18C004D5D16 /* STCentralTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCentralTool.m; sourceTree = "<group>"; };
 		965D2C371C99864C004D5D16 /* CentralVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CentralVC.h; sourceTree = "<group>"; };
 		965D2C381C99864C004D5D16 /* CentralVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CentralVC.m; sourceTree = "<group>"; };
 		9671BEEA1C9A467700BEEDA9 /* PeripheralVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralVC.h; sourceTree = "<group>"; };
@@ -88,8 +88,8 @@
 		965D2C321C98F18C004D5D16 /* STBLETool */ = {
 			isa = PBXGroup;
 			children = (
-				965D2C331C98F18C004D5D16 /* STBLETool.h */,
-				965D2C341C98F18C004D5D16 /* STBLETool.m */,
+				965D2C331C98F18C004D5D16 /* STCentralTool.h */,
+				965D2C341C98F18C004D5D16 /* STCentralTool.m */,
 			);
 			name = STBLETool;
 			path = Classes/STBLETool;
@@ -179,7 +179,7 @@
 				965D2C391C99864C004D5D16 /* CentralVC.m in Sources */,
 				9671BEEC1C9A467700BEEDA9 /* PeripheralVC.m in Sources */,
 				965D2C1C1C98F03B004D5D16 /* AppDelegate.m in Sources */,
-				965D2C351C98F18C004D5D16 /* STBLETool.m in Sources */,
+				965D2C351C98F18C004D5D16 /* STCentralTool.m in Sources */,
 				965D2C191C98F03B004D5D16 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

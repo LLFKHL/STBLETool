@@ -7,11 +7,11 @@
 //
 
 #import "CentralVC.h"
-#import "STBLETool.h"
+#import "STCentralTool.h"
 
 @interface CentralVC ()
 
-@property (strong, nonatomic) STBLETool *tool;
+@property (strong, nonatomic) STCentralTool *tool;
 
 @end
 
@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.tool = [STBLETool shareInstence];
+    self.tool = [STCentralTool shareInstence];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

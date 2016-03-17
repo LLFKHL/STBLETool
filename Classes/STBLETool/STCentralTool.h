@@ -9,7 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-@interface STBLETool : NSObject
+@protocol STCentralToolDelegate <NSObject>
+
+
+
+@end
+
+@interface STCentralTool : NSObject
 
 + (instancetype)shareInstence;
 

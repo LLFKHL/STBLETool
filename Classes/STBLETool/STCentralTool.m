@@ -6,9 +6,9 @@
 //  Copyright © 2016 tangjr. All rights reserved.
 //
 
-#import "STBLETool.h"
+#import "STCentralTool.h"
 
-@interface STBLETool () <CBCentralManagerDelegate, CBPeripheralDelegate>
+@interface STCentralTool () <CBCentralManagerDelegate, CBPeripheralDelegate>
 
 @property (strong, nonatomic) CBCentralManager *centralManager;
 
@@ -20,18 +20,18 @@
 
 @end
 
-@implementation STBLETool
+@implementation STCentralTool
 
-static const NSTimeInterval STBLETimeOut = 5.0;
-static const BOOL STBLEAutoConnect = YES;
+static const NSTimeInterval STCentralToolTimeOut = 5.0;
+static const BOOL STCentralToolAutoConnect = YES;
 
 #pragma mark - Left Cycle
 
 + (instancetype)shareInstence {
-    static STBLETool *tool = nil;
+    static STCentralTool *tool = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        tool = [STBLETool new];
+        tool = [STCentralTool new];
     });
     return tool;
 }
@@ -40,7 +40,7 @@ static const BOOL STBLEAutoConnect = YES;
     self = [super init];
     if (self) {
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
-        if (STBLEAutoConnect) {
+        if (STCentralToolAutoConnect) {
             [self startScan];
         }
     }
@@ -69,7 +69,7 @@ static const BOOL STBLEAutoConnect = YES;
 #pragma mark - Private Methods
 
 - (void)startTimer {
-    self.timeoutTimer = [NSTimer timerWithTimeInterval:STBLETimeOut target:self selector:@selector(timeOut) userInfo:nil repeats:NO];
+    self.timeoutTimer = [NSTimer timerWithTimeInterval:STCentralToolTimeOut target:self selector:@selector(timeOut) userInfo:nil repeats:NO];
 }
 
 - (void)stopTimer {
@@ -95,7 +95,7 @@ static const BOOL STBLEAutoConnect = YES;
     }
 //    [self selectPeripheral:peripheral];
     
-    if (STBLEAutoConnect) {
+    if (STCentralToolAutoConnect) {
         [self.centralManager retrievePeripheralsWithIdentifiers:@[peripheral.identifier]];
     }
 }
