@@ -17,4 +17,6 @@
 - (void)stopScan;
 - (void)selectPeripheral:(CBPeripheral *)peripheral;
 
+- (void)sendData:(NSData *)data;
+
 @end

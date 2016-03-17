@@ -11,6 +11,8 @@
 
 @interface CentralVC ()
 
+@property (strong, nonatomic) STBLETool *tool;
+
 @end
 
 @implementation CentralVC
@@ -18,11 +20,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.tool = [STBLETool shareInstence];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    STBLETool *tool = [STBLETool shareInstence];
-    [tool startScan];
+    [self.tool startScan];
 }
 
 @end

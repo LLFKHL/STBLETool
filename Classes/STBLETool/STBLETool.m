@@ -14,10 +14,16 @@
 
 @property (strong, nonatomic) NSMutableArray *discoveredPeripherals; // 找到的所有的 Peripheral
 @property (strong, nonatomic) CBPeripheral *connectedPeripheral; // 当前已经连接的 Peripheral
+@property (strong, nonatomic) CBCharacteristic *connectedCharacteristic; // 当前已经连接的 Characteristic
+
+@property (strong, nonatomic) NSTimer *timeoutTimer;
 
 @end
 
 @implementation STBLETool
+
+static const NSTimeInterval STBLETimeOut = 5.0;
+static const BOOL STBLEAutoConnect = YES;
 
 #pragma mark - Left Cycle
 
@@ -34,6 +40,9 @@
     self = [super init];
     if (self) {
         self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+        if (STBLEAutoConnect) {
+            [self startScan];
+        }
     }
     return self;
 }
@@ -41,6 +50,7 @@
 #pragma mark - Public Methods
 
 - (void)startScan {
+    [self.discoveredPeripherals removeAllObjects];
     [self.centralManager scanForPeripheralsWithServices:nil options:nil];
 }
 
@@ -52,6 +62,25 @@
     [self.centralManager connectPeripheral:peripheral options:nil];
 }
 
+- (void)sendData:(NSData *)data {
+    [self.connectedPeripheral writeValue:data forCharacteristic:self.connectedCharacteristic type:CBCharacteristicWriteWithResponse];
+}
+
+#pragma mark - Private Methods
+
+- (void)startTimer {
+    self.timeoutTimer = [NSTimer timerWithTimeInterval:STBLETimeOut target:self selector:@selector(timeOut) userInfo:nil repeats:NO];
+}
+
+- (void)stopTimer {
+    [self.timeoutTimer invalidate];
+    self.timeoutTimer = nil;
+}
+
+- (void)timeOut {
+    
+}
+
 #pragma mark - CBCentralManagerDelegate
 
 // 最新设备的 central 状态，一般用于检测是否支持 central
@@ -61,7 +90,14 @@
 
 // 找到设备时调用，每找到一个就调用一次
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
-    [self.discoveredPeripherals addObject:peripheral];
+    if (![self.discoveredPeripherals containsObject:peripheral]) {
+        [self.discoveredPeripherals addObject:peripheral];
+    }
+//    [self selectPeripheral:peripheral];
+    
+    if (STBLEAutoConnect) {
+        [self.centralManager retrievePeripheralsWithIdentifiers:@[peripheral.identifier]];
+    }
 }
 
 // 成功连接到某个设备
@@ -89,8 +125,9 @@
         return;
     }
     for (CBCharacteristic *characteristic in service.characteristics) {
+        self.connectedCharacteristic = characteristic;
         // 找到对应的 Characteristic，就自动读取数据
-        if (characteristic.properties == CBCharacteristicPropertyRead) {
+        if (characteristic.properties & CBCharacteristicPropertyRead) {
             [peripheral readValueForCharacteristic:characteristic];
         }
     }
@@ -103,6 +140,10 @@
     }
     NSData *value = characteristic.value;
     NSLog(@"%@", value);
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    
 }
 
 #pragma mark - Getter / Setter

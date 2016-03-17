@@ -26,7 +26,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设备作为 Central" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NlG-XQ-n0r">
                                                     <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="19"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -41,13 +41,30 @@
                                             <segue destination="fjc-Zg-BqP" kind="push" id="RAr-di-iPw"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="LN7-Hc-d4V">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="LN7-Hc-d4V">
                                         <rect key="frame" x="0.0" y="114" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LN7-Hc-d4V" id="OTb-cY-hlW">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设备作为 Peripheral" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iy3-Qf-MZw">
+                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="19"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="iy3-Qf-MZw" secondAttribute="trailing" id="0mn-AI-Zpn"/>
+                                                <constraint firstItem="iy3-Qf-MZw" firstAttribute="top" secondItem="OTb-cY-hlW" secondAttribute="top" id="3uX-Ct-xx3"/>
+                                                <constraint firstAttribute="bottom" secondItem="iy3-Qf-MZw" secondAttribute="bottom" id="4Nw-HG-tS2"/>
+                                                <constraint firstItem="iy3-Qf-MZw" firstAttribute="leading" secondItem="OTb-cY-hlW" secondAttribute="leading" id="9t6-vX-TbF"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="ejE-6P-8JK" kind="push" id="oRg-Iv-oOd"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="q5G-Da-SyH">
                                         <rect key="frame" x="0.0" y="164" width="320" height="50"/>
@@ -74,7 +91,27 @@
             </objects>
             <point key="canvasLocation" x="1173" y="400"/>
         </scene>
-        <!--CentralVC-->
+        <!--Peripheral-->
+        <scene sceneID="2xG-h2-9uC">
+            <objects>
+                <viewController id="ejE-6P-8JK" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WKg-KW-J9H"/>
+                        <viewControllerLayoutGuide type="bottom" id="vg9-Bi-b90"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="p8y-4G-r0g">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Peripheral" id="dRZ-vS-di0"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OUu-gd-ER9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1608" y="751"/>
+        </scene>
+        <!--Central-->
         <scene sceneID="Ubx-CK-My9">
             <objects>
                 <viewController id="fjc-Zg-BqP" customClass="CentralVC" sceneMemberID="viewController">
@@ -87,7 +124,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="K9x-bW-TWr"/>
+                    <navigationItem key="navigationItem" title="Central" id="K9x-bW-TWr"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Og3-iN-SBX" userLabel="First Responder" sceneMemberID="firstResponder"/>
