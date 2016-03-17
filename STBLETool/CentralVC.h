@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  CentralVC.h
 //  STBLETool
 //
 //  Created by TangJR on 3/16/16.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface CentralVC : UIViewController
 
 @end
-
