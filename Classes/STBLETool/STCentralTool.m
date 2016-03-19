@@ -92,6 +92,13 @@ static const NSInteger STCentralToolOTADataSubLength = 20; ///< OTA 每次发送
     if (!toCharacteristic || !self.isConnected) {
         return;
     }
+    if (data == nil || data.length == 0) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(centralTool:writeFinishWithError:)]) {
+            NSError *error = ST_ERROR(STCentralErrorWriteDataLength);
+            [self.delegate centralTool:self writeFinishWithError:error];
+        }
+        return;
+    }
     self.isOTA = NO;
     [self.connectedPeripheral writeValue:data forCharacteristic:toCharacteristic type:CBCharacteristicWriteWithResponse];
 }
