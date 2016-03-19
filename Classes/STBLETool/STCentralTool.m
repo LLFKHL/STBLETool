@@ -100,6 +100,13 @@ static const NSInteger STCentralToolOTADataSubLength = 20; ///< OTA 每次发送
     if (!toCharacteristic || !self.isConnected) {
         return;
     }
+    if (data == nil || data.length == 0) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(centralTool:otaWriteFinishWithError:)]) {
+            NSError *error = ST_ERROR(STCentralErrorWriteDataLength);
+            [self.delegate centralTool:self otaWriteFinishWithError:error];
+        }
+        return;
+    }
     self.isOTA = YES;
     self.otaSubDataOffset = 0;
     self.otaData = data;

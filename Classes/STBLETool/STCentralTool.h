@@ -14,6 +14,7 @@ static NSString * const STCentralErrorConnectTimeOut = @"time out";
 static NSString * const STCentralErrorConnectOthers = @"other error";
 static NSString * const STCentralErrorConnectPowerOff = @"power off";
 static NSString * const STCentralErrorConnectAutoConnectFail = @"auto connect fail";
+static NSString * const STCentralErrorWriteDataLength = @"data length error";
 
 @protocol STCentralToolDelegate <NSObject>
 
