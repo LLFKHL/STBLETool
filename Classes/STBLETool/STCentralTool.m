@@ -103,7 +103,6 @@ static const NSInteger STCentralToolOTADataSubLength = 20; ///< OTA 每次发送
     self.isOTA = YES;
     self.otaSubDataOffset = 0;
     self.otaData = data;
-//    [self.connectedPeripheral writeValue:data forCharacteristic:toCharacteristic type:CBCharacteristicWriteWithResponse];
     [self sendOTAWriteToCharacteristic:toCharacteristic];
 }
 
@@ -139,6 +138,7 @@ static const NSInteger STCentralToolOTADataSubLength = 20; ///< OTA 每次发送
     // 如果能找到则开始建立连接
     CBPeripheral *peripheral = [peripherals firstObject];
     [self.centralManager connectPeripheral:peripheral options:nil];
+    // 注意保留 Peripheral 的引用
     self.lastConnectedPeripheral = peripheral;
     [self startTimer];
 }
@@ -298,7 +298,7 @@ static const NSInteger STCentralToolOTADataSubLength = 20; ///< OTA 每次发送
 
 // 接收到数据写入结果的回调
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-    // 如果是 OTA
+    // 如果是 OTA，则判断错误，无错就继续截取发送
     if (self.isOTA) {
         [self otaDataWriteValueWithError:error characteristic:characteristic];
         return;
@@ -312,6 +312,7 @@ static const NSInteger STCentralToolOTADataSubLength = 20; ///< OTA 每次发送
 
 #pragma mark - Send Data Loop
 
+// 处理 ota 的写入回调，错误则直接回调返回，正确则继续截取数据并发送
 - (void)otaDataWriteValueWithError:(NSError *)error characteristic:(CBCharacteristic *)characteristic {
     if (error) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(centralTool:otaWriteFinishWithError:)]) {
@@ -319,12 +320,14 @@ static const NSInteger STCentralToolOTADataSubLength = 20; ///< OTA 每次发送
         }
         return;
     }
+    // 将已发送的数据长度回调回去
     if (self.delegate && [self.delegate respondsToSelector:@selector(centralTool:otaWriteLength:)]) {
         [self.delegate centralTool:self otaWriteLength:self.otaSubDataOffset];
     }
     [self sendOTAWriteToCharacteristic:characteristic];
 }
 
+// 将截取的数据发送出去
 - (void)sendOTAWriteToCharacteristic:(CBCharacteristic *)characteristic {
     NSData *data = [self subOTAData];
     self.otaSubDataOffset += data.length;
@@ -337,7 +340,7 @@ static const NSInteger STCentralToolOTADataSubLength = 20; ///< OTA 每次发送
     [self.connectedPeripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
 }
 
-// 截取数据，因为
+// 截取数据，因为蓝牙传输的数据单次有大小限制
 - (NSData *)subOTAData {
     NSInteger totalLength = self.otaData.length;
     NSInteger remainLength = totalLength - self.otaSubDataOffset;
